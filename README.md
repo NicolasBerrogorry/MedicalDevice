@@ -1,9 +1,9 @@
-# MedicalDevice Project
+# MedicalDevice
 
 ## Overview
 This project, built with .NET and Angular, simulates a tracking system for managing medical device repairs in a factory setting. It serves as a portfolio demonstration of software architecture and development skills.
 
-## Components
+## Projects
 - **MedicalDeviceApi**: Backend system for recording technician activity and managing device repair data on processing lines.
 - **MedicalDeviceApp**: Frontend application for technicians and managers, providing access to repair information and system interactions.
 
