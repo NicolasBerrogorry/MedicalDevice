@@ -1,53 +1,42 @@
-﻿using MedicalDevice.Domain.Entities;
-using MedicalDevice.Domain;
+﻿using MedicalDevice.Database;
+using MedicalDevice.Model;
+using MedicalDevice.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedicalDevice.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class DeviceController(DomainContext context) : ControllerBase
+    [Route("device")]
+    public class DeviceController(DatabaseContext context, SessionService session) : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetTechnicians()
+        public async Task<ActionResult<List<Device>>> GetAllDevices()
         {
-            var technicians = context.Devices.ToList();
-            return Ok(technicians);
+            var devices = await context.Devices
+                .ToListAsync();
+            return Ok(devices);
+        }
+
+        [HttpGet, Route("{id}")]
+        public async Task<ActionResult<TicketEntry>> GetDevice([FromRoute] Ulid id)
+        {
+            var entry = await context.TicketEntries.FindAsync(id);
+            if (entry is null) return NotFound($"Could not find entry with id {id}");
+
+            return Ok(entry);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTechnician([FromBody] Device device)
+        public async Task<IActionResult> CreateDevice([FromBody] Device device)
         {
-            context.Devices.Add(device);
+            device.Id = Ulid.NewUlid();
+            device.CreationDate = DateTime.Now;
+            device.CreationUserId = session.GetUserId();
+
+            context.Add(device);
             await context.SaveChangesAsync();
-            return Ok(device);
-        }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDevice(int id)
-        {
-            var device = await context.Devices.FindAsync(id);
-            if (device == null)
-            {
-                return NotFound();
-            }
-            return Ok(device);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDevice(int id, [FromBody] Device updatedDevice)
-        {
-            var device = await context.Devices.FindAsync(id);
-            if (device == null)
-            {
-                return NotFound();
-            }
-
-            device.ModelId = updatedDevice.ModelId;
-
-            await context.SaveChangesAsync();
             return Ok(device);
         }
     }

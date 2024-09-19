@@ -1,4 +1,88 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Define custom black palette with all hues and contrast
+$black-palette: mat.define-palette((50: #e0e0e0,
+            100: #b3b3b3,
+            200: #808080,
+            300: #4d4d4d,
+            400: #333333,
+            500: #000000, // Black
+            600: #000000,
+            700: #000000,
+            800: #000000,
+            900: #000000,
+            A100: #b3b3b3,
+            A200: #808080,
+            A400: #333333,
+            A700: #000000,
+            contrast: (50: black,
+                100: black,
+                200: black,
+                300: white,
+                400: white,
+                500: white,
+                600: white,
+                700: white,
+                800: white,
+                900: white,
+                A100: black,
+                A200: black,
+                A400: white,
+                A700: white,
+            ),
+        ));
+
+// Define custom white palette with all hues and contrast
+$white-palette: mat.define-palette((50: #ffffff,
+            100: #f2f2f2,
+            200: #e6e6e6,
+            300: #d9d9d9,
+            400: #cccccc,
+            500: #ffffff, // White
+            600: #ffffff,
+            700: #ffffff,
+            800: #ffffff,
+            900: #ffffff,
+            A100: #f2f2f2,
+            A200: #e6e6e6,
+            A400: #cccccc,
+            A700: #ffffff,
+            contrast: (50: black,
+                100: black,
+                200: black,
+                300: black,
+                400: black,
+                500: black,
+                600: black,
+                700: black,
+                800: black,
+                900: black,
+                A100: black,
+                A200: black,
+                A400: black,
+                A700: black,
+            ),
+        ));
+
+$black-and-white-primary: mat.define-palette($black-palette);
+$black-and-white-accent: mat.define-palette($white-palette, A100, A200, A400);
+
+$black-and-white-theme: mat.define-light-theme((color: (primary: $black-and-white-primary,
+                accent: $black-and-white-accent,
+                warn: mat.define-palette(mat.$red-palette), // Default red for warnings
+            ),
+        ));
+
+@include mat.all-component-themes($black-and-white-theme);
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

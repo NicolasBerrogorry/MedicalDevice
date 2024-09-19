@@ -1,0 +1,59 @@
+<form [formGroup]="formGroup" class="mat-form row">
+    <!-- Photo -->
+    <div class="col-2">
+        <img class="blob-preview" [src]="formGroup.controls.photoId?.value | blob" alt="User Photo" />
+    </div>
+
+    <div class="col">
+        <!-- Initials Field -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Initials</mat-label>
+                <input matInput formControlName="initials" [readonly]="readonly" />
+                <mat-error *ngIf="formGroup.controls.initials?.hasError('required')">
+                    Initials are required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Name Field -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" [readonly]="readonly" />
+                <mat-error *ngIf="formGroup.controls.name?.hasError('required')">
+                    Name is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Role Field -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Role</mat-label>
+                <mat-select *ngIf="!readonly; else READONLY_ROLE" formControlName="role">
+                    <mat-option *ngFor="let role of userRoles" [value]="role">
+                        {{ role }}
+                    </mat-option>
+                </mat-select>
+                <ng-template #READONLY_ROLE>
+                    <input matInput formControlName="role" readonly="true" />
+                </ng-template>
+                <mat-error *ngIf="formGroup.controls.role?.hasError('required')">
+                    Role is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Description Field -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea matInput rows="3" formControlName="description" [readonly]="readonly"></textarea>
+                <mat-error *ngIf="formGroup.controls.description?.hasError('required')">
+                    Description is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</form>

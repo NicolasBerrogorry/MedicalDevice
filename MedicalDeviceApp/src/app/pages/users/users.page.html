@@ -1,0 +1,10 @@
+<mat-accordion *ngIf="users | async; let users">
+    <mat-expansion-panel *ngFor="let user of users">
+        <mat-expansion-panel-header>
+            <mat-panel-title class="users-panel-title">
+                <img class="photo-icon" [src]="user.photoId | blob"> {{ user.name }}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-user [user]="user" [readonly]="true"></app-user>
+    </mat-expansion-panel>
+</mat-accordion>

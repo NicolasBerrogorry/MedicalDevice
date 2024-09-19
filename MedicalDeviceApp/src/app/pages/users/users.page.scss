@@ -1,0 +1,16 @@
+.photo-icon {
+    height: 3em;
+    margin-right: 1em;
+    border-radius: 25%;
+}
+
+.users-panel-title {
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.mat-expanded {
+    .users-panel-title {
+        opacity: 0;
+    }
+}

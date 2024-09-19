@@ -1,0 +1,16 @@
+{
+    "generatorName": "typescript-angular",
+    "typeMappings": {
+        "Ulid": "string"
+    },
+    "additionalProperties": {
+        "modelNameSuffix": "",
+        "modelNamePrefix": "",
+        "useTags": true,
+        "operationIdNaming": "camelCase",
+        "modelPropertyNaming": "camelCase",
+        "serviceSuffix": "Service",
+        "supportsES6": true,
+        "ngVersion": "16.1.0"
+    }
+}

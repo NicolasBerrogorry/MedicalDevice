@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <div>
+    <span>Medical Device</span>
+  </div>
+</mat-toolbar>
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  <a mat-tab-link *ngFor="let link of routes" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">
+    {{link.title}}
+  </a>
+</nav>
+<mat-tab-nav-panel #tabPanel class="tab-panel">
+  <router-outlet></router-outlet>
+</mat-tab-nav-panel>
+<mat-toolbar color="primary">
+  <div class="footer">
+    <div>
+      <span></span>
+    </div>
+  </div>
+</mat-toolbar>

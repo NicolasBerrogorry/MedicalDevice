@@ -1,18 +1,26 @@
-using MedicalDevice.Domain;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using Cysharp.Serialization.Json;
+using MedicalDevice.Database;
+using MedicalDevice.Schema;
+using MedicalDevice.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
 // Add services to the container.
 builder.Services
-    .AddDbContext<DomainContext>(o => o.UseInMemoryDatabase(nameof(DomainContext)));
+    .AddDbContext<DatabaseContext>(o => o.UseInMemoryDatabase(nameof(DatabaseContext)))
+    .AddTransient<SessionService>();
 
 // Add controllers to the container.
 builder.Services
-    .AddControllers();
+    .AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new UlidJsonConverter());
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 // Add a Cors policy for development
 builder.Services.AddCors(options =>
@@ -27,6 +35,13 @@ builder.Services.AddCors(options =>
 // Register the Swagger generator
 builder.Services.AddSwaggerGen(c =>
 {
+    c.MapType<Ulid>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "ulid"
+    });
+    c.CustomOperationIds(apiDesc => apiDesc.ActionDescriptor.RouteValues["action"]);
+    c.SchemaFilter<UlidSchemaFilter>();
     c.SwaggerDoc("v0", new OpenApiInfo { Title = "Medical Device", Version = "v0" });
 });
 

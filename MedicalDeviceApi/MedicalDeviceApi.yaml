@@ -1,0 +1,810 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Medical Device",
+    "version": "v0"
+  },
+  "paths": {
+    "/blob": {
+      "post": {
+        "tags": [
+          "Blob"
+        ],
+        "operationId": "CreateBlob",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "Ulid",
+                  "example": "00000000000000000000000000"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "Ulid",
+                  "example": "00000000000000000000000000"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "Ulid",
+                  "example": "00000000000000000000000000"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blob/{id}": {
+      "get": {
+        "tags": [
+          "Blob"
+        ],
+        "operationId": "GetBlob",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/device": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "GetAllDevices",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Device"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Device"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Device"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "CreateDevice",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Device"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Device"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Device"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/device/{id}": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "GetDevice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEntry"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEntry"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEntry"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ticket": {
+      "post": {
+        "tags": [
+          "Ticket"
+        ],
+        "operationId": "CreateTicket",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ticket"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ticket"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ticket"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ticket/{id}": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "operationId": "GetTicket",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ticket/{id}/open": {
+      "patch": {
+        "tags": [
+          "Ticket"
+        ],
+        "operationId": "OpenTicket",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ticket/{id}/close": {
+      "patch": {
+        "tags": [
+          "Ticket"
+        ],
+        "operationId": "CloseTicket",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticket"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ticket/{ticketId}/entry": {
+      "get": {
+        "tags": [
+          "TicketEntry"
+        ],
+        "operationId": "GetEntries",
+        "parameters": [
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TicketEntry"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TicketEntry"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TicketEntry"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ticket/entry/{id}": {
+      "get": {
+        "tags": [
+          "TicketEntry"
+        ],
+        "operationId": "GetEntry",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEntry"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEntry"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEntry"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ticket/entry": {
+      "post": {
+        "tags": [
+          "TicketEntry"
+        ],
+        "operationId": "CreateEntry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketEntry"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketEntry"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketEntry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/user/current": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "SetCurrentUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetCurrentUser",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/all": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetAllUsers",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Device": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "creationUserId": {
+            "type": "string",
+            "format": "ulid",
+            "nullable": true
+          },
+          "photoId": {
+            "type": "string",
+            "format": "ulid",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "creationUser": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ticket": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "deviceId": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "creationUserId": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "state": {
+            "$ref": "#/components/schemas/TicketState"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastModificationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastModificationUserId": {
+            "type": "string",
+            "format": "ulid",
+            "nullable": true
+          },
+          "creationUser": {
+            "$ref": "#/components/schemas/User"
+          },
+          "device": {
+            "$ref": "#/components/schemas/Device"
+          },
+          "lastModificationUser": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketEntry": {
+        "type": "object",
+        "properties": {
+          "ticketId": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "entryDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "technicianId": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "toolId": {
+            "type": "string",
+            "format": "ulid",
+            "nullable": true
+          },
+          "photoId": {
+            "type": "string",
+            "format": "ulid",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "technician": {
+            "$ref": "#/components/schemas/User"
+          },
+          "tool": {
+            "$ref": "#/components/schemas/Tool"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketState": {
+        "enum": [
+          "Created",
+          "Open",
+          "Closed"
+        ],
+        "type": "string"
+      },
+      "Tool": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "photoId": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "photoId": {
+            "type": "string",
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
+          },
+          "role": {
+            "$ref": "#/components/schemas/UserRole"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "initials": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserRole": {
+        "enum": [
+          "Cashier",
+          "Technician"
+        ],
+        "type": "string"
+      }
+    }
+  }
+}
