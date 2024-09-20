@@ -87,6 +87,53 @@
       }
     },
     "/device": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "CreateDevice",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Device"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Device"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Device"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Device"
@@ -123,12 +170,26 @@
             }
           }
         }
-      },
-      "post": {
+      }
+    },
+    "/device/{id}": {
+      "patch": {
         "tags": [
           "Device"
         ],
-        "operationId": "CreateDevice",
+        "operationId": "UpdateDevice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -150,12 +211,27 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              }
+            }
           }
         }
-      }
-    },
-    "/device/{id}": {
+      },
       "get": {
         "tags": [
           "Device"
@@ -179,17 +255,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketEntry"
+                  "$ref": "#/components/schemas/Device"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketEntry"
+                  "$ref": "#/components/schemas/Device"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketEntry"
+                  "$ref": "#/components/schemas/Device"
                 }
               }
             }
@@ -497,16 +573,66 @@
         }
       }
     },
-    "/user/current": {
+    "/user": {
       "post": {
         "tags": [
           "User"
         ],
-        "operationId": "SetCurrentUser",
+        "operationId": "CreateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "UpdateUser",
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "Ulid",
@@ -514,6 +640,25 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
@@ -541,7 +686,19 @@
         "tags": [
           "User"
         ],
-        "operationId": "GetCurrentUser",
+        "operationId": "GetUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -604,6 +761,78 @@
           }
         }
       }
+    },
+    "/user/{id}/set-current": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "SetCurrentUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Ulid",
+              "example": "00000000000000000000000000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/current": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetCurrentUser",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -622,8 +851,8 @@
           },
           "creationUserId": {
             "type": "string",
-            "format": "ulid",
-            "nullable": true
+            "format": "Ulid",
+            "example": "00000000000000000000000000"
           },
           "photoId": {
             "type": "string",

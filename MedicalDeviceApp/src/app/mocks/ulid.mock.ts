@@ -1,1 +1,1 @@
-export const DefaultULID = '00000000000000000000000000';
+export const DefaultUlid = '00000000000000000000000000';

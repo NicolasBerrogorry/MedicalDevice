@@ -1,5 +1,6 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
 import { Configuration } from 'src/api';
+import { DefaultUlid } from '../mocks/ulid.mock';
 
 @Pipe({
   name: 'blob'
@@ -7,9 +8,10 @@ import { Configuration } from 'src/api';
 export class BlobPipe implements PipeTransform {
   private readonly configuration = inject(Configuration)
 
-  transform(value?: string | null) {
-    if (!value) return null;
-    const blobUrl = `${this.configuration.basePath}/blob/${value}`
+  transform(blobId?: string | null) {
+    if (!blobId) return null;
+    if (blobId === DefaultUlid) return null;
+    const blobUrl = `${this.configuration.basePath}/blob/${blobId}`
     return blobUrl;
   }
 

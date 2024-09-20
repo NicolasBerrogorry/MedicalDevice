@@ -27,6 +27,12 @@ namespace MedicalDevice.Database
             var bobJohnsonPhotoId = Ulid.NewUlid();
             var carolWilliamsPhotoId = Ulid.NewUlid();
             var davidBrownPhotoId = Ulid.NewUlid();
+
+            var bpMonitorX100PhotoId = Ulid.NewUlid();
+            var glucoseMonitorAdvancePhotoId = Ulid.NewUlid();
+            var respiratoryMonitorLitePhotoId = Ulid.NewUlid();
+            var ultrasoundPortableProPhotoId = Ulid.NewUlid();
+
             modelBuilder.Entity<Blob>()
             .HasData(
                 new Blob()
@@ -64,15 +70,55 @@ namespace MedicalDevice.Database
                     CreationTime = DateTime.Now,
                     CreationUser = null,
                     CreationUserId = Ulid.Empty
+                },
+                new Blob()
+                {
+                    Id = bpMonitorX100PhotoId,
+                    Content = GetBytesFromDisk("Mocks/BP Monitor X100.webp"),
+                    ContentType = "image/webp",
+                    CreationTime = DateTime.Now,
+                    CreationUser = null,
+                    CreationUserId = Ulid.Empty
+                },
+                new Blob()
+                {
+                    Id = glucoseMonitorAdvancePhotoId,
+                    Content = GetBytesFromDisk("Mocks/Glucose Monitor Advance.webp"),
+                    ContentType = "image/webp",
+                    CreationTime = DateTime.Now,
+                    CreationUser = null,
+                    CreationUserId = Ulid.Empty
+                },
+                new Blob()
+                {
+                    Id = ultrasoundPortableProPhotoId,
+                    Content = GetBytesFromDisk("Mocks/Ultrasound Portable PRO.webp"),
+                    ContentType = "image/webp",
+                    CreationTime = DateTime.Now,
+                    CreationUser = null,
+                    CreationUserId = Ulid.Empty
+                },
+                new Blob()
+                {
+                    Id = respiratoryMonitorLitePhotoId,
+                    Content = GetBytesFromDisk("Mocks/Respiratory Monitor Lite.webp"),
+                    ContentType = "image/webp",
+                    CreationTime = DateTime.Now,
+                    CreationUser = null,
+                    CreationUserId = Ulid.Empty
                 }
             );
 
+            var aliceSmithId = Ulid.NewUlid();
+            var bobJohnsonId = Ulid.NewUlid();
+            var carolWilliamsId = Ulid.NewUlid();
+            var davidBrownId = Ulid.NewUlid();
 
             modelBuilder.Entity<User>()
             .HasData(
                 new User
                 {
-                    Id = Ulid.NewUlid(),
+                    Id = aliceSmithId,
                     PhotoId = aliceSmithPhotoId,
                     Role = UserRole.Cashier,
                     Name = "Alice Smith",
@@ -81,7 +127,7 @@ namespace MedicalDevice.Database
                 },
                 new User
                 {
-                    Id = Ulid.NewUlid(),
+                    Id = bobJohnsonId,
                     PhotoId = bobJohnsonPhotoId,
                     Role = UserRole.Technician,
                     Name = "Bob Johnson",
@@ -90,7 +136,7 @@ namespace MedicalDevice.Database
                 },
                 new User
                 {
-                    Id = Ulid.NewUlid(),
+                    Id = carolWilliamsId,
                     PhotoId = carolWilliamsPhotoId,
                     Role = UserRole.Cashier,
                     Name = "Carol Williams",
@@ -99,12 +145,51 @@ namespace MedicalDevice.Database
                 },
                 new User
                 {
-                    Id = Ulid.NewUlid(),
+                    Id = davidBrownId,
                     PhotoId = davidBrownPhotoId,
                     Role = UserRole.Technician,
                     Name = "David Brown",
                     Initials = "DB",
                     Description = "Laboratory Technician"
+                }
+            );
+
+            modelBuilder.Entity<Device>().HasData(
+                new Device
+                {
+                    Id = Ulid.NewUlid(),
+                    CreationDate = DateTime.Now,
+                    CreationUserId = aliceSmithId,
+                    PhotoId = bpMonitorX100PhotoId,
+                    Model = "BP Monitor X100",
+                    SerialNumber = "BP-001-X100"
+                },
+                new Device
+                {
+                    Id = Ulid.NewUlid(),
+                    CreationDate = DateTime.Now,
+                    CreationUserId = bobJohnsonId,
+                    PhotoId = glucoseMonitorAdvancePhotoId,
+                    Model = "Glucose Monitor Advance",
+                    SerialNumber = "GL-002-ADV"
+                },
+                new Device
+                {
+                    Id = Ulid.NewUlid(),
+                    CreationDate = DateTime.Now,
+                    CreationUserId = carolWilliamsId,
+                    PhotoId = ultrasoundPortableProPhotoId,
+                    Model = "Ultrasound Portable PRO",
+                    SerialNumber = "US-003-PRO"
+                },
+                new Device
+                {
+                    Id = Ulid.NewUlid(),
+                    CreationDate = DateTime.Now,
+                    CreationUserId = davidBrownId,
+                    PhotoId = respiratoryMonitorLitePhotoId,
+                    Model = "Respiratory Monitor Lite",
+                    SerialNumber = "RM-004-LITE"
                 }
             );
         }

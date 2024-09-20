@@ -4,8 +4,8 @@ import { AppRoutes } from '../../app.routing';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './root.component.html',
-  styleUrls: ['./root.component.scss']
+  templateUrl: './root.page.html',
+  styleUrls: ['./root.page.scss']
 })
 export class RootPage {
   private readonly router = inject(Router)

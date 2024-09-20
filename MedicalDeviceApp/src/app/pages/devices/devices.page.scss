@@ -1,0 +1,42 @@
+.list-entry-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+
+    .list-entry-title {
+        transition: all 0.2s ease-in-out;
+
+        text-align: center;
+        flex-shrink: 1;
+        flex-grow: 0;
+
+        &.user-touched {
+            font-weight: bold;
+        }
+    }
+
+    .list-entry-photo {
+        transition: all 0.2s ease-in-out;
+
+        flex-shrink: 1;
+        width: 3em;
+        margin-right: 1em;
+        border-radius: 25%;
+        opacity: 1;
+    }
+
+}
+
+.mat-expanded {
+    .list-entry-header {
+        .list-entry-title {
+            flex-shrink: 0;
+            flex-grow: 1;
+        }
+
+        .list-entry-photo {
+            opacity: 0;
+        }
+    }
+}

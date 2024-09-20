@@ -1,1 +1,63 @@
-<p>device works!</p>
+<form [formGroup]="formGroup" class="mat-form row entity-form">
+    <!-- Photo -->
+    <div class="col-2">
+        <app-blob [formControl]="formGroup.controls.photoId!" [readonly]="readonly"
+            [previewFallback]="'../assets/profile-picture.webp'"></app-blob>
+    </div>
+
+    <div class="col">
+        <!-- Creation Date -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Creation Date</mat-label>
+                <input matInput [value]="entity.creationDate" [readonly]="true" />
+            </mat-form-field>
+        </div>
+
+        <!-- Creation Date -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Creation User</mat-label>
+                <input matInput [value]="entity.creationUser?.name" [readonly]="true" />
+                <button mat-icon-button matSuffix (click)="onViewCreationUser()" [disabled]="!entity.creationUser">
+                    <mat-icon>preview </mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="col">
+        <!-- Model Field -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Model</mat-label>
+                <input matInput [formControl]="formGroup.controls.model!" [readonly]="readonly" />
+                <mat-error *ngIf="formGroup.controls.model?.hasError('required')">
+                    Model is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Model Field -->
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Serial Number</mat-label>
+                <input matInput [formControl]="formGroup.controls.serialNumber!" [readonly]="readonly" />
+                <mat-error *ngIf="formGroup.controls.model?.hasError('required')">
+                    Serial number is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div *ngIf="!readonly" class="entity-footer">
+        <button mat-raised-button (click)="onReset()" [disabled]="formGroup.pristine">Reset</button>
+        <ng-container *ngIf="creating; else SAVING">
+            <button mat-raised-button color="primary" [disabled]="formGroup.pristine"
+                (click)="onCreate()">Create</button>
+        </ng-container>
+        <ng-template #SAVING>
+            <button mat-raised-button color="primary" [disabled]="formGroup.pristine" (click)="onUpdate()">Save</button>
+        </ng-template>
+    </div>
+</form>

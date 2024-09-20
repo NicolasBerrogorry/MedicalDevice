@@ -1,7 +1,8 @@
-<form [formGroup]="formGroup" class="mat-form row">
+<form [formGroup]="formGroup" class="mat-form row entity-form">
     <!-- Photo -->
     <div class="col-2">
-        <img class="blob-preview" [src]="formGroup.controls.photoId?.value | blob" alt="User Photo" />
+        <app-blob [formControl]="formGroup.controls.photoId!" [readonly]="readonly"
+            [previewFallback]="'../assets/profile-picture.webp'"></app-blob>
     </div>
 
     <div class="col">
@@ -9,7 +10,7 @@
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Initials</mat-label>
-                <input matInput formControlName="initials" [readonly]="readonly" />
+                <input matInput [formControl]="formGroup.controls.initials!" [readonly]="readonly" />
                 <mat-error *ngIf="formGroup.controls.initials?.hasError('required')">
                     Initials are required
                 </mat-error>
@@ -20,7 +21,7 @@
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput formControlName="name" [readonly]="readonly" />
+                <input matInput [formControl]="formGroup.controls.name!" [readonly]="readonly" />
                 <mat-error *ngIf="formGroup.controls.name?.hasError('required')">
                     Name is required
                 </mat-error>
@@ -31,7 +32,7 @@
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Role</mat-label>
-                <mat-select *ngIf="!readonly; else READONLY_ROLE" formControlName="role">
+                <mat-select *ngIf="!readonly; else READONLY_ROLE" [formControl]="formGroup.controls.role!">
                     <mat-option *ngFor="let role of userRoles" [value]="role">
                         {{ role }}
                     </mat-option>
@@ -44,16 +45,30 @@
                 </mat-error>
             </mat-form-field>
         </div>
+    </div>
 
+    <div class="col">
         <!-- Description Field -->
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
-                <textarea matInput rows="3" formControlName="description" [readonly]="readonly"></textarea>
+                <textarea matInput rows="7" [formControl]="formGroup.controls.description!"
+                    [readonly]="readonly"></textarea>
                 <mat-error *ngIf="formGroup.controls.description?.hasError('required')">
                     Description is required
                 </mat-error>
             </mat-form-field>
         </div>
+    </div>
+
+    <div *ngIf="!readonly" class="entity-footer">
+        <button mat-raised-button (click)="onReset()" [disabled]="formGroup.pristine">Reset</button>
+        <ng-container *ngIf="creating; else SAVING">
+            <button mat-raised-button color="primary" [disabled]="formGroup.pristine"
+                (click)="onCreate()">Create</button>
+        </ng-container>
+        <ng-template #SAVING>
+            <button mat-raised-button color="primary" [disabled]="formGroup.pristine" (click)="onUpdate()">Save</button>
+        </ng-template>
     </div>
 </form>

@@ -1,1 +1,17 @@
-<p>devices works!</p>
+<mat-accordion *ngIf="entries" #accordion>
+    <mat-expansion-panel *ngFor="let device of entries; let userIndex = index;">
+        <mat-expansion-panel-header>
+            <mat-panel-title class="list-entry-header">
+                <img class="list-entry-photo" [src]="device.photoId | blob" draggable="false"
+                    onerror="this.src='../assets/device-picture.webp';">
+
+                <h1 class="list-entry-title" [class.user-touched]="device.dirty">
+                    <ng-container *ngIf="device.dirty"> * </ng-container>
+                    {{ device.model }} / {{ device.serialNumber }}
+                </h1>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-device [entity]="device" [readonly]="false" (submit)="onSubmit(userIndex, $event)"
+            (dirty)="onDirty(userIndex, $event)"></app-device>
+    </mat-expansion-panel>
+</mat-accordion>

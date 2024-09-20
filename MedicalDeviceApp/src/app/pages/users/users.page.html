@@ -1,10 +1,17 @@
-<mat-accordion *ngIf="users | async; let users">
-    <mat-expansion-panel *ngFor="let user of users">
+<mat-accordion *ngIf="entries" #accordion>
+    <mat-expansion-panel *ngFor="let user of entries; let userIndex = index;">
         <mat-expansion-panel-header>
-            <mat-panel-title class="users-panel-title">
-                <img class="photo-icon" [src]="user.photoId | blob"> {{ user.name }}
+            <mat-panel-title class="list-entry-header">
+                <img class="list-entry-photo" [src]="user.photoId | blob" draggable="false"
+                    onerror="this.src='../assets/profile-picture.webp';">
+
+                <h1 class="list-entry-title" [class.user-touched]="user.dirty">
+                    <ng-container *ngIf="user.dirty"> * </ng-container>
+                    {{ user.name }}
+                </h1>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-user [user]="user" [readonly]="true"></app-user>
+        <app-user [entity]="user" [readonly]="false" (submit)="onSubmit(userIndex, $event)"
+            (dirty)="onDirty(userIndex, $event)"></app-user>
     </mat-expansion-panel>
 </mat-accordion>

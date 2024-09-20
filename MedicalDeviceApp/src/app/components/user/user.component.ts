@@ -1,6 +1,7 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { User, UserRole } from 'src/api';
+import { Component, inject } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { User, UserRole, UserService } from 'src/api';
+import { EntityComponent } from '../entity/entity.component';
 import { DefaultUser } from 'src/app/mocks/user.mock';
 
 @Component({
@@ -8,19 +9,26 @@ import { DefaultUser } from 'src/app/mocks/user.mock';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
-  @Input() user: User | null = null;
-  @Input() readonly: boolean = false;
+export class UserComponent extends EntityComponent<User> {
+  private readonly userService = inject(UserService);
 
-  private readonly formBuilder = inject(FormBuilder)
+  userRoles = Object.keys(UserRole)
 
-  userRoles = Object.values(UserRole)
+  protected override async createEntity(entity: User) {
+    const createdUser = await firstValueFrom(this.userService.createUser(entity));
+    return createdUser;
+  }
 
-  formGroup = this.formBuilder.group(DefaultUser)
+  protected override async updateEntity(id: string, entity: User): Promise<User> {
+    const updatedUser = await firstValueFrom(this.userService.updateUser(id, entity));
+    return updatedUser;
+  }
 
-  ngOnInit() {
-    if (this.user) {
-      this.formGroup.setValue(this.user);
-    }
+  protected override getEntityId(entity?: User) {
+    return entity?.id;
+  }
+
+  protected override getEntityDefault(): User {
+    return DefaultUser;
   }
 }

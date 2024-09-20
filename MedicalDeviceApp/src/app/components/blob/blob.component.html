@@ -1,0 +1,8 @@
+<div class="blob-wrapper" (click)="onSelectFile()">
+    <img #BLOB_PREVIEW class="blob-preview" [src]="blobId | blob" draggable="false"
+        (error)="BLOB_PREVIEW.src=previewFallback;" />
+    <div *ngIf="!readonly" class="blob-overlay">
+        <input #fileInput class="blob-hidden-input" type="file" (change)="onUploadFile($event)" accept="image/*" />
+        <mat-icon class="blob-upload-icon" color="accent">upload_file</mat-icon>
+    </div>
+</div>
