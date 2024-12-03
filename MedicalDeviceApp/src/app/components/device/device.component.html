@@ -19,7 +19,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Creation User</mat-label>
                 <input matInput [value]="entity.creationUser?.name" [readonly]="true" />
-                <button mat-icon-button matSuffix (click)="onViewCreationUser()" [disabled]="!entity.creationUser">
+                <button mat-icon-button matSuffix (click)="onClickCreationUser()" [disabled]="!entity.creationUser">
                     <mat-icon>preview </mat-icon>
                 </button>
             </mat-form-field>

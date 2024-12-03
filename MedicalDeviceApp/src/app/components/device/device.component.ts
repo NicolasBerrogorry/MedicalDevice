@@ -16,9 +16,16 @@ import { UserComponent } from '../user/user.component';
 })
 export class DeviceComponent extends EntityComponent<Device> implements OnInit {
   private readonly dialog = inject(MatDialog)
+  private readonly userService = inject(UserService);
   private readonly deviceService = inject(DeviceService)
 
-  async onViewCreationUser() {
+  override async ngOnInit() {
+    const currentUser = await firstValueFrom(this.userService.getCurrentUser());
+    this.entity.creationUser = currentUser;
+    await super.ngOnInit();
+  }
+
+  async onClickCreationUser() {
     const creationUser = this.entity?.creationUser;
     if (!creationUser) return;
     const userComponentRef = this.dialog.open(UserComponent, {

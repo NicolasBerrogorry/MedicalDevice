@@ -35,7 +35,7 @@ export abstract class EntityComponent<TEntity extends {}> implements OnInit, OnC
         return this.formBuilder.group<TEntity>(entity);
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
         if (this.matDialogData) {
             this.formGroup.reset(this.matDialogData);
         }
